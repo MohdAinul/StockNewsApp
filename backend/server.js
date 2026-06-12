@@ -16,11 +16,12 @@ app.get("/news", async (req, res) => {
     const feed = await parser.parseURL(
       "https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms",
     );
-    const news = feed.items.slice(0, 5).map((item, index) => ({
+    const news = feed.items.slice(0, 10).map((item, index) => ({
       id: index + 1,
       title: item.title,
       source: "Economic Times",
       published: item.pubDate,
+      link: item.link,
     }));
 
     res.json(news);

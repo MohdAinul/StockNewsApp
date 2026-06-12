@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import NewsCard from "./components/NewsCard";
 
 function App() {
   const [news, setNews] = useState([]);
@@ -32,19 +33,13 @@ function App() {
       <h1>📈 Stock News App</h1>
 
       {news.map((item) => (
-        <div
+        <NewsCard
           key={item.id}
-          style={{
-            border: "1px solid #ccc",
-            padding: "15px",
-            marginBottom: "15px",
-            borderRadius: "10px",
-          }}
-        >
-          <h3>{item.title}</h3>
-          <p>{item.source}</p>
-          <p>{item.published}</p>
-        </div>
+          title={item.title}
+          source={item.source}
+          published={item.published}
+          link={item.link}
+        />
       ))}
     </div>
   );
