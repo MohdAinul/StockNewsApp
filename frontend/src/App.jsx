@@ -5,9 +5,10 @@ function App() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    fetch("http://localhost:3000/news")
+    fetch(`${API_URL}/news`)
       .then((response) => response.json())
       .then((data) => {
         setNews(data);
