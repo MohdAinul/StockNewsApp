@@ -2,18 +2,30 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:3000/news")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setNews(data);
+        setLoading(false);
       })
       .catch((error) => {
         console.error(error);
+        setError("Failed to load news");
+        setLoading(false);
       });
   }, []);
+
+  if (loading) {
+    return <h2>Loading latest market news...</h2>;
+  }
+
+  if (error) {
+    return <h2>{error}</h2>;
+  }
 
   return (
     <div style={{ padding: "20px" }}>
