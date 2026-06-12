@@ -31,6 +31,7 @@ function App() {
   return (
     <div style={{ padding: "20px" }}>
       <h1>📈 Stock News App</h1>
+      <p style={{ color: "gray" }}>{news.length} Latest Market Updates</p>
 
       {news.map((item) => (
         <NewsCard
