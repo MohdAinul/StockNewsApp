@@ -33,7 +33,9 @@ function App() {
     <div style={{ padding: "20px" }}>
       <h1>📈 Stock News App</h1>
       <p style={{ color: "gray" }}>{news.length} Latest Market Updates</p>
-
+      <div className="min-h-screen bg-blue-600 text-white flex items-center justify-center text-5xl font-bold">
+        Tailwind Working
+      </div>
       {news.map((item) => (
         <NewsCard
           key={item.id}
