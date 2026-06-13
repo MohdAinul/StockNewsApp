@@ -1,55 +1,34 @@
 function NewsCard({ title, source, published, link }) {
   return (
-    <div
-      style={{
-        border: "1px solid #ddd",
-        padding: "16px",
-        marginBottom: "16px",
-        borderRadius: "10px",
-        textAlign: "left",
-      }}
-    >
-      <h3
-        style={{
-          marginBottom: "12px",
-          lineHeight: "1.5",
-        }}
-      >
+    <div className="bg-white rounded-2xl p-5 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+      <div className="mb-3">
+        <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">
+          {source}
+        </span>
+      </div>
+
+      <h3 className="text-lg font-semibold text-slate-800 leading-relaxed mb-4">
         {title}
       </h3>
 
-      <p
-        style={{
-          color: "#888",
-          margin: "4px 0",
-        }}
-      >
-        {source}
-      </p>
+      <div className="flex justify-between items-center">
+        <span className="text-sm text-slate-500">
+          {new Date(published).toLocaleDateString("en-IN", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          })}
+        </span>
 
-      <p
-        style={{
-          color: "#888",
-          margin: "4px 0 12px 0",
-        }}
-      >
-        {new Date(published).toLocaleDateString("en-IN", {
-          day: "numeric",
-          month: "short",
-          year: "numeric",
-        })}
-      </p>
-      <a
-        href={link}
-        target="_blank"
-        rel="noreferrer"
-        style={{
-          textDecoration: "none",
-          fontWeight: "bold",
-        }}
-      >
-        Read More →
-      </a>
+        <a
+          href={link}
+          target="_blank"
+          rel="noreferrer"
+          className="text-blue-600 font-semibold hover:text-blue-800"
+        >
+          Read →
+        </a>
+      </div>
     </div>
   );
 }

@@ -22,29 +22,45 @@ function App() {
   }, []);
 
   if (loading) {
-    return <h2>Loading latest market news...</h2>;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <h2 className="text-2xl font-semibold text-slate-600">
+          Loading Market News...
+        </h2>
+      </div>
+    );
   }
 
   if (error) {
     return <h2>{error}</h2>;
   }
-
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>📈 Stock News App</h1>
-      <p style={{ color: "gray" }}>{news.length} Latest Market Updates</p>
-      <div className="min-h-screen bg-blue-600 text-white flex items-center justify-center text-5xl font-bold">
-        Tailwind Working
+    <div className="min-h-screen bg-slate-100">
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="text-center mb-10">
+          <h1 className="text-5xl font-bold text-slate-800">Stock News Hub</h1>
+
+          <p className="text-slate-500 mt-3">
+            Real-Time Indian Stock Market News
+          </p>
+
+          <p className="text-sm text-slate-400 mt-2">
+            {news.length} Latest Market Updates
+          </p>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {news.map((item) => (
+            <NewsCard
+              key={item.id}
+              title={item.title}
+              source={item.source}
+              published={item.published}
+              link={item.link}
+            />
+          ))}
+        </div>
       </div>
-      {news.map((item) => (
-        <NewsCard
-          key={item.id}
-          title={item.title}
-          source={item.source}
-          published={item.published}
-          link={item.link}
-        />
-      ))}
     </div>
   );
 }
