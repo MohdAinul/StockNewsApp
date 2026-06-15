@@ -8,9 +8,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 
-// ─── 11 Best Genuine Indian Share Market RSS Feeds ───────────────────────────
+// ─── Share Market RSS Feeds ───────────────────────────
 const feeds = [
-  // Economic Times — 3 dedicated market feeds
   {
     name: "Economic Times Markets",
     url: "https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms",
@@ -24,7 +23,6 @@ const feeds = [
     url: "https://economictimes.indiatimes.com/markets/ipos/fpos/rssfeeds/2143429.cms",
   },
 
-  // Moneycontrol — India's #1 financial portal
   {
     name: "Moneycontrol Markets",
     url: "https://www.moneycontrol.com/rss/marketreports.xml",
@@ -34,37 +32,31 @@ const feeds = [
     url: "https://www.moneycontrol.com/rss/latestnews.xml",
   },
 
-  // LiveMint — Wall Street Journal backed
   {
     name: "LiveMint Markets",
     url: "https://www.livemint.com/rss/markets",
   },
 
-  // Business Standard — Oldest Indian financial daily
   {
     name: "Business Standard Markets",
     url: "https://www.business-standard.com/rss/markets-106.rss",
   },
 
-  // CNBC TV18 — India's leading business TV channel
   {
     name: "CNBC TV18 Markets",
     url: "https://www.cnbctv18.com/commonfeeds/v1/eng/rss/market.xml",
   },
 
-  // The Hindu BusinessLine — Trusted since 1994
   {
     name: "Hindu BusinessLine Markets",
     url: "https://www.thehindubusinessline.com/markets/feeder/default.rss",
   },
 
-  // The Hindu Markets section
   {
     name: "The Hindu Markets",
     url: "https://www.thehindu.com/business/markets/feeder/default.rss",
   },
 
-  // Financial Express — Indian Express Group
   {
     name: "Financial Express Market",
     url: "https://www.financialexpress.com/market/feed/",
@@ -185,13 +177,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/news", async (req, res) => {
-  console.log("NEWS API HIT");
   try {
     const allNews = [];
 
     for (const feedSource of feeds) {
       try {
         const feed = await parser.parseURL(feedSource.url);
+        console.log(feed);
         const news = feed.items
           .slice(0, 10)
           .filter((item) => isMarketNews(item.title || ""))
