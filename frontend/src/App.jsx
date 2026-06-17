@@ -39,18 +39,29 @@ function App() {
   return (
     <div
       className={`min-h-screen transition-all duration-300 ${
-        darkMode ? "bg-slate-900" : "bg-slate-100"
+        darkMode
+          ? "bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800"
+          : "bg-slate-100"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="text-center mb-10">
+        <div className="text-center mb-14">
           <h1
-            className={`text-5xl font-bold ${
+            className={`text-5xl md:text-6xl font-extrabold tracking-tight ${
               darkMode ? "text-white" : "text-slate-800"
             }`}
           >
             Stock News Hub
           </h1>
+          <div
+            className={`inline-block px-4 py-1 rounded-full text-sm mt-4 ${
+              darkMode
+                ? "bg-slate-800 text-slate-300"
+                : "bg-slate-200 text-slate-700"
+            }`}
+          >
+            Live News Aggregator 🚀
+          </div>
 
           <p
             className={`mt-3 ${darkMode ? "text-slate-300" : "text-slate-500"}`}
@@ -58,14 +69,22 @@ function App() {
             Real-Time Indian Stock Market News
           </p>
 
-          <p className="text-sm text-slate-400 mt-2">
+          <p
+            className={`text-sm mt-2 ${
+              darkMode ? "text-slate-300" : "text-slate-500"
+            }`}
+          >
             {news.length} Latest Market Updates
           </p>
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="mt-4 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+            className={`mt-6 px-5 py-3 rounded-full font-medium transition-all duration-300 ${
+              darkMode
+                ? "bg-slate-700 text-white hover:bg-slate-600"
+                : "bg-white text-slate-800 shadow hover:bg-slate-200"
+            }`}
           >
-            {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
+            {darkMode ? "☀️ Light" : "🌙 Dark"}
           </button>
         </div>
 

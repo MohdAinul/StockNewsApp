@@ -2,7 +2,9 @@ function NewsCard({ title, description, source, published, link, darkMode }) {
   return (
     <div
       className={`rounded-2xl p-5 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ${
-        darkMode ? "bg-slate-800" : "bg-white"
+        darkMode
+          ? "bg-slate-800/70 border border-slate-700 backdrop-blur-sm"
+          : "bg-white"
       }`}
     >
       <div className="mb-3">
