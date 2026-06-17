@@ -1,16 +1,28 @@
-function NewsCard({ title, description, source, published, link }) {
+function NewsCard({ title, description, source, published, link, darkMode }) {
   return (
-    <div className="bg-white rounded-2xl p-5 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+    <div
+      className={`rounded-2xl p-5 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ${
+        darkMode ? "bg-slate-800" : "bg-white"
+      }`}
+    >
       <div className="mb-3">
         <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">
           {source}
         </span>
       </div>
 
-      <h3 className="text-lg font-semibold text-slate-800 leading-relaxed mb-4">
+      <h3
+        className={`text-lg font-semibold leading-relaxed mb-4 ${
+          darkMode ? "text-white" : "text-slate-800"
+        }`}
+      >
         {title}
       </h3>
-      <p className="text-gray-600 text-sm leading-relaxed mb-4">
+      <p
+        className={`text-sm leading-relaxed mb-4 ${
+          darkMode ? "text-slate-300" : "text-gray-600"
+        }`}
+      >
         {description?.length > 120
           ? description.slice(0, 120) + "..."
           : description}
