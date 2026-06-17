@@ -56,6 +56,7 @@ function App() {
               title={item.title}
               source={item.source}
               published={item.published}
+              description={item.description}
               link={item.link}
             />
           ))}

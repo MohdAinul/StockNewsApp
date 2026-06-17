@@ -188,9 +188,10 @@ app.get("/news", async (req, res) => {
           .slice(0, 10)
           .filter((item) => isMarketNews(item.title || ""))
           .map((item, index) => ({
-            id: `${feedSource.name}-${index}`,
+            id: item.guid || `${feedSource.name}-${index}`,
             title: item.title || "No Title",
             source: feedSource.name,
+            description: item.contentSnippet || item.content || "",
             published: item.pubDate || item.isoDate || new Date().toISOString(),
             link: item.link || "#",
           }));
