@@ -9,6 +9,21 @@ function App() {
 
   const API_URL = import.meta.env.VITE_API_URL;
 
+  const toggleTheme = () => {
+    setDarkMode(!darkMode);
+
+    localStorage.setItem("theme", !darkMode ? "dark" : "light");
+  };
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme === "dark") {
+      setDarkMode(true);
+    } else if (savedTheme === "light") {
+      setDarkMode(false);
+    }
+  }, []);
   useEffect(() => {
     fetch(`${API_URL}/news`)
       .then((response) => response.json())
@@ -77,7 +92,7 @@ function App() {
             {news.length} Latest Market Updates
           </p>
           <button
-            onClick={() => setDarkMode(!darkMode)}
+            onClick={toggleTheme}
             className={`mt-6 px-5 py-3 rounded-full font-medium transition-all duration-300 ${
               darkMode
                 ? "bg-slate-700 text-white hover:bg-slate-600"
