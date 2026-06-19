@@ -7,6 +7,7 @@ function App() {
   const [error, setError] = useState("");
   const [darkMode, setDarkMode] = useState(true);
   const [lastUpdated, setLastUpdated] = useState("");
+  const [refreshing, setRefreshing] = useState(false);
 
   const API_URL = import.meta.env.VITE_API_URL;
 
@@ -25,19 +26,22 @@ function App() {
       setDarkMode(false);
     }
   }, []);
-
   const fetchNews = () => {
+    setRefreshing(true);
+
     fetch(`${API_URL}/news`)
       .then((response) => response.json())
       .then((data) => {
         setNews(data.news);
         setLastUpdated(data.lastUpdated);
         setLoading(false);
+        setRefreshing(false);
       })
       .catch((error) => {
         console.error(error);
         setError("Failed to load news");
         setLoading(false);
+        setRefreshing(false);
       });
   };
   useEffect(() => {
@@ -72,7 +76,7 @@ function App() {
               darkMode ? "text-white" : "text-slate-800"
             }`}
           >
-            Stock News Hub
+            StockPe
           </h1>
           <div
             className={`inline-block px-4 py-1 rounded-full text-sm mt-4 ${
@@ -107,22 +111,38 @@ function App() {
               ? new Date(lastUpdated).toLocaleTimeString("en-IN")
               : "-"}
           </p>
-          <button
-            onClick={fetchNews}
-            className="mt-4 ml-3 px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition"
-          >
-            🔄 Refresh News
-          </button>
-          <button
-            onClick={toggleTheme}
-            className={`mt-6 px-5 py-3 rounded-full font-medium transition-all duration-300 ${
-              darkMode
-                ? "bg-slate-700 text-white hover:bg-slate-600"
-                : "bg-white text-slate-800 shadow hover:bg-slate-200"
-            }`}
-          >
-            {darkMode ? "☀️ Light" : "🌙 Dark"}
-          </button>
+
+          <div className="flex justify-center gap-3 mt-6">
+            <button
+              onClick={fetchNews}
+              disabled={refreshing}
+              className={`px-5 py-3 rounded-full font-medium transition-all duration-300 ${
+                darkMode
+                  ? "bg-slate-700 text-white hover:bg-slate-600"
+                  : "bg-white text-slate-800 shadow hover:bg-slate-200"
+              } disabled:opacity-50`}
+            >
+              {refreshing ? (
+                <span className="flex items-center gap-2">
+                  <span className="animate-spin inline-block">🔄</span>
+                  Refreshing...
+                </span>
+              ) : (
+                "🔄 Refresh News"
+              )}
+            </button>
+
+            <button
+              onClick={toggleTheme}
+              className={`px-5 py-3 rounded-full font-medium transition-all duration-300 ${
+                darkMode
+                  ? "bg-slate-700 text-white hover:bg-slate-600"
+                  : "bg-white text-slate-800 shadow hover:bg-slate-200"
+              }`}
+            >
+              {darkMode ? "☀️ Light" : "🌙 Dark"}
+            </button>
+          </div>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
