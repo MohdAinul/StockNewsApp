@@ -56,10 +56,13 @@ const feeds = [
     name: "The Hindu Markets",
     url: "https://www.thehindu.com/business/markets/feeder/default.rss",
   },
-
   {
-    name: "Financial Express Market",
-    url: "https://www.financialexpress.com/market/feed/",
+    name: "Zee Business",
+    url: "https://www.zeebiz.com/latest.xml",
+  },
+  {
+    name: "NDTV Profit",
+    url: "https://feeds.feedburner.com/ndtvprofit-latest",
   },
 ];
 
@@ -183,7 +186,6 @@ app.get("/news", async (req, res) => {
     for (const feedSource of feeds) {
       try {
         const feed = await parser.parseURL(feedSource.url);
-        console.log(feed);
         const news = feed.items
           .slice(0, 10)
           .filter((item) => isMarketNews(item.title || ""))
@@ -217,7 +219,11 @@ app.get("/news", async (req, res) => {
     uniqueNews.sort((a, b) => new Date(b.published) - new Date(a.published));
 
     console.log(`\nTotal unique market news: ${uniqueNews.length}\n`);
-    res.json(uniqueNews);
+    res.json({
+      totalNews: uniqueNews.length,
+      lastUpdated: new Date().toISOString(),
+      news: uniqueNews,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to fetch news" });

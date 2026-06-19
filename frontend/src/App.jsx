@@ -6,6 +6,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [darkMode, setDarkMode] = useState(true);
+  const [lastUpdated, setLastUpdated] = useState("");
 
   const API_URL = import.meta.env.VITE_API_URL;
 
@@ -24,11 +25,13 @@ function App() {
       setDarkMode(false);
     }
   }, []);
-  useEffect(() => {
+
+  const fetchNews = () => {
     fetch(`${API_URL}/news`)
       .then((response) => response.json())
       .then((data) => {
-        setNews(data);
+        setNews(data.news);
+        setLastUpdated(data.lastUpdated);
         setLoading(false);
       })
       .catch((error) => {
@@ -36,6 +39,9 @@ function App() {
         setError("Failed to load news");
         setLoading(false);
       });
+  };
+  useEffect(() => {
+    fetchNews();
   }, []);
 
   if (loading) {
@@ -91,6 +97,22 @@ function App() {
           >
             {news.length} Latest Market Updates
           </p>
+          <p
+            className={`text-sm mt-2 ${
+              darkMode ? "text-slate-400" : "text-slate-500"
+            }`}
+          >
+            Last Updated:{" "}
+            {lastUpdated
+              ? new Date(lastUpdated).toLocaleTimeString("en-IN")
+              : "-"}
+          </p>
+          <button
+            onClick={fetchNews}
+            className="mt-4 ml-3 px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition"
+          >
+            🔄 Refresh News
+          </button>
           <button
             onClick={toggleTheme}
             className={`mt-6 px-5 py-3 rounded-full font-medium transition-all duration-300 ${
