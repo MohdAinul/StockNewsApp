@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import NewsCard from "./components/NewsCard";
+import Navbar from "./components/Navbar";
 
 function App() {
   const [news, setNews] = useState([]);
@@ -154,6 +155,12 @@ function App() {
             </button>
           </div>
         </div>
+        <Navbar
+          darkMode={darkMode}
+          toggleTheme={toggleTheme}
+          fetchNews={fetchNews}
+          refreshing={refreshing}
+        />
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {news.map((item) => (
