@@ -50,8 +50,18 @@ function App() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h2 className="text-2xl font-semibold text-slate-600">
+      <div
+        className={`min-h-screen flex items-center justify-center ${
+          darkMode
+            ? "bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800"
+            : "bg-slate-100"
+        }`}
+      >
+        <h2
+          className={`text-2xl font-semibold ${
+            darkMode ? "text-slate-300" : "text-slate-600"
+          }`}
+        >
           Loading Market News...
         </h2>
       </div>
@@ -85,7 +95,7 @@ function App() {
                 : "bg-slate-200 text-slate-700"
             }`}
           >
-            Live News Aggregator 🚀
+            Live News Aggregator
           </div>
 
           <p
