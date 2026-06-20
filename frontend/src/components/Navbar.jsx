@@ -26,15 +26,6 @@ function Navbar({ darkMode, toggleTheme, onRefresh, refreshing, lastUpdated }) {
           </div>
         </div>
 
-        {/* Center — last updated */}
-        <p
-          className={`hidden md:block text-xs ${darkMode ? "text-slate-500" : "text-slate-400"}`}
-        >
-          {lastUpdated
-            ? `Updated ${new Date(lastUpdated).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}`
-            : "Indian Stock Market News"}
-        </p>
-
         {/* Actions */}
         <div className="flex items-center gap-2">
           <button
@@ -62,6 +53,18 @@ function Navbar({ darkMode, toggleTheme, onRefresh, refreshing, lastUpdated }) {
             {darkMode ? "☀️" : "🌙"}
           </button>
         </div>
+      </div>
+      <div
+        className={`text-center py-2 text-xs ${
+          darkMode
+            ? "bg-slate-900 text-slate-400"
+            : "bg-slate-200 text-slate-600"
+        }`}
+      >
+        🕒 Last Updated:{" "}
+        {lastUpdated
+          ? new Date(lastUpdated).toLocaleTimeString("en-IN")
+          : "Loading..."}
       </div>
     </nav>
   );

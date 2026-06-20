@@ -105,75 +105,7 @@ function App() {
         refreshing={refreshing}
         lastUpdated={lastUpdated}
       />
-
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Hero */}
-        <div className="text-center mb-14">
-          <h1
-            className={`text-5xl md:text-6xl font-extrabold tracking-tight ${darkMode ? "text-white" : "text-slate-800"}`}
-          >
-            Stock<span className="text-blue-500">Pe</span>
-          </h1>
-          <div
-            className={`inline-block px-4 py-1 rounded-full text-sm mt-4 ${
-              darkMode
-                ? "bg-slate-800 text-slate-300"
-                : "bg-slate-200 text-slate-700"
-            }`}
-          >
-            Live News Aggregator
-          </div>
-          <p
-            className={`mt-3 ${darkMode ? "text-slate-300" : "text-slate-500"}`}
-          >
-            Real-Time Indian Stock Market News
-          </p>
-          <p
-            className={`text-sm mt-2 ${darkMode ? "text-slate-300" : "text-slate-500"}`}
-          >
-            {news.length} Latest Market Updates
-          </p>
-          <p
-            className={`text-sm mt-2 ${darkMode ? "text-slate-400" : "text-slate-500"}`}
-          >
-            Last Updated:{" "}
-            {lastUpdated
-              ? new Date(lastUpdated).toLocaleTimeString("en-IN")
-              : "-"}
-          </p>
-
-          <div className="flex justify-center gap-3 mt-6">
-            <button
-              onClick={fetchNews}
-              disabled={refreshing}
-              className={`px-5 py-3 rounded-full font-medium transition-all duration-300 ${
-                darkMode
-                  ? "bg-slate-700 text-white hover:bg-slate-600"
-                  : "bg-white text-slate-800 shadow hover:bg-slate-200"
-              } disabled:opacity-50`}
-            >
-              {refreshing ? (
-                <span className="flex items-center gap-2">
-                  <span className="animate-spin inline-block">🔄</span>{" "}
-                  Refreshing...
-                </span>
-              ) : (
-                "🔄 Refresh News"
-              )}
-            </button>
-            <button
-              onClick={toggleTheme}
-              className={`px-5 py-3 rounded-full font-medium transition-all duration-300 ${
-                darkMode
-                  ? "bg-slate-700 text-white hover:bg-slate-600"
-                  : "bg-white text-slate-800 shadow hover:bg-slate-200"
-              }`}
-            >
-              {darkMode ? "☀️ Light" : "🌙 Dark"}
-            </button>
-          </div>
-        </div>
-
         {/* News Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {news.map((item) => (
