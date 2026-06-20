@@ -30,6 +30,19 @@ function Navbar({ darkMode, toggleTheme, onRefresh, refreshing, lastUpdated }) {
             </span>
           </div>
         </div>
+        <p
+          className={`text-xs md:text-sm ${
+            darkMode ? "text-slate-400" : "text-slate-500"
+          }`}
+        >
+          Updated:{" "}
+          {lastUpdated
+            ? new Date(lastUpdated).toLocaleTimeString("en-IN", {
+                hour: "2-digit",
+                minute: "2-digit",
+              })
+            : "--"}
+        </p>
 
         {/* Actions */}
         <div className="flex items-center gap-2">
@@ -59,25 +72,6 @@ function Navbar({ darkMode, toggleTheme, onRefresh, refreshing, lastUpdated }) {
           >
             {darkMode ? "☀️" : "🌙"}
           </button>
-        </div>
-      </div>
-
-      {/* Status Bar */}
-      <div
-        className={`border-t ${
-          darkMode
-            ? "border-slate-800 bg-slate-900 text-slate-400"
-            : "border-slate-200 bg-slate-100 text-slate-600"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 py-2 text-center text-xs">
-          Updated:{" "}
-          {lastUpdated
-            ? new Date(lastUpdated).toLocaleTimeString("en-IN", {
-                hour: "2-digit",
-                minute: "2-digit",
-              })
-            : "Loading..."}
         </div>
       </div>
     </nav>
