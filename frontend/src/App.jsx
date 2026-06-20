@@ -56,7 +56,7 @@ function App() {
       <div
         className={`min-h-screen flex flex-col items-center justify-center gap-4 ${
           darkMode
-            ? "bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800"
+            ? "bg-linear-to-br from-slate-950 via-slate-900 to-slate-800"
             : "bg-slate-100"
         }`}
       >
@@ -94,7 +94,7 @@ function App() {
     <div
       className={`min-h-screen transition-all duration-300 ${
         darkMode
-          ? "bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800"
+          ? "bg-linear-to-br from-slate-950 via-slate-900 to-slate-800"
           : "bg-slate-100"
       }`}
     >
