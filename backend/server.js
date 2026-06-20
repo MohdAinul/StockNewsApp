@@ -230,6 +230,56 @@ app.get("/news", async (req, res) => {
   }
 });
 
+const TICKER_SYMBOLS = [
+  { symbol: "%5ENSEI", label: "NIFTY 50" },
+  { symbol: "%5EBSESN", label: "SENSEX" },
+  { symbol: "%5ENSEBANK", label: "BANK NIFTY" },
+  { symbol: "RELIANCE.NS", label: "RELIANCE" },
+  { symbol: "TCS.NS", label: "TCS" },
+  { symbol: "HDFCBANK.NS", label: "HDFC BANK" },
+  { symbol: "INFY.NS", label: "INFOSYS" },
+  { symbol: "SBIN.NS", label: "SBI" },
+];
+
+// Cache ticker for 60 seconds
+let tickerCache = [];
+let tickerLastFetched = null;
+const TICKER_CACHE_MS = 60 * 1000;
+
+async function fetchTicker(item) {
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${item.symbol}?interval=1d&range=1d`;
+  const res = await fetch(url, {
+    headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" },
+  });
+  const data = await res.json();
+  const meta = data.chart.result[0].meta;
+  const price = meta.regularMarketPrice;
+  const prev = meta.chartPreviousClose;
+  const change = ((price - prev) / prev) * 100;
+  return { symbol: item.symbol, label: item.label, price, change };
+}
+
+app.get("/ticker", async (req, res) => {
+  try {
+    const now = Date.now();
+    if (!tickerLastFetched || now - tickerLastFetched > TICKER_CACHE_MS) {
+      console.log("Fetching ticker data...");
+      const results = await Promise.allSettled(TICKER_SYMBOLS.map(fetchTicker));
+      tickerCache = results
+        .filter((r) => r.status === "fulfilled")
+        .map((r) => r.value);
+      tickerLastFetched = now;
+      console.log(
+        `Ticker: ${tickerCache.length}/${TICKER_SYMBOLS.length} fetched`,
+      );
+    }
+    res.json(tickerCache);
+  } catch (err) {
+    console.error("Ticker error:", err);
+    res.status(500).json([]);
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`\nServer running on port ${PORT}`);
 });

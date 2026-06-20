@@ -3,6 +3,7 @@ import NewsCard from "./components/NewsCard";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Logo from "./components/Logo";
+import TickerBar from "./components/TickerBar";
 
 function App() {
   const [news, setNews] = useState([]);
@@ -105,6 +106,7 @@ function App() {
         refreshing={refreshing}
         lastUpdated={lastUpdated}
       />
+      <TickerBar darkMode={darkMode} apiUrl={API_URL} />
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* News Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
