@@ -1,3 +1,5 @@
+import Logo from "./Logo";
+
 function Navbar({ darkMode, toggleTheme, onRefresh, refreshing, lastUpdated }) {
   return (
     <nav
