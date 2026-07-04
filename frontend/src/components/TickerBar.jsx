@@ -1,16 +1,9 @@
 import { useEffect, useState } from "react";
 
-const TICKERS = [
-  { symbol: "%5ENSEI", label: "NIFTY 50" },
-  { symbol: "%5EBSESN", label: "SENSEX" },
-  { symbol: "%5ENSEBANK", label: "BANK NIFTY" },
-];
-
 function TickerBar({ darkMode, apiUrl }) {
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch Market Data
   const fetchQuotes = async () => {
     try {
       const response = await fetch(`${apiUrl}/ticker`);
@@ -24,7 +17,6 @@ function TickerBar({ darkMode, apiUrl }) {
     }
   };
 
-  // Load once + Refresh every 1 minute
   useEffect(() => {
     fetchQuotes();
 
