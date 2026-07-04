@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 
-// ─── Share Market RSS Feeds ───────────────────────────
+// ─── Share Market RSS Feeds ─────────────────────────
 const feeds = [
   {
     name: "Economic Times Markets",
@@ -234,11 +234,6 @@ const TICKER_SYMBOLS = [
   { symbol: "%5ENSEI", label: "NIFTY 50" },
   { symbol: "%5EBSESN", label: "SENSEX" },
   { symbol: "%5ENSEBANK", label: "BANK NIFTY" },
-  { symbol: "RELIANCE.NS", label: "RELIANCE" },
-  { symbol: "TCS.NS", label: "TCS" },
-  { symbol: "HDFCBANK.NS", label: "HDFC BANK" },
-  { symbol: "INFY.NS", label: "INFOSYS" },
-  { symbol: "SBIN.NS", label: "SBI" },
 ];
 
 // Cache ticker for 60 seconds

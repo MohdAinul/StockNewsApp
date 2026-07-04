@@ -4,136 +4,88 @@ const TICKERS = [
   { symbol: "%5ENSEI", label: "NIFTY 50" },
   { symbol: "%5EBSESN", label: "SENSEX" },
   { symbol: "%5ENSEBANK", label: "BANK NIFTY" },
-  { symbol: "RELIANCE.NS", label: "RELIANCE" },
-  { symbol: "TCS.NS", label: "TCS" },
-  { symbol: "HDFCBANK.NS", label: "HDFC BANK" },
-  { symbol: "INFY.NS", label: "INFOSYS" },
-  { symbol: "SBIN.NS", label: "SBI" },
 ];
 
-export default function TickerBar({ darkMode, apiUrl }) {
+function TickerBar({ darkMode, apiUrl }) {
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  async function loadQuotes() {
+  // Fetch Market Data
+  const fetchQuotes = async () => {
     try {
-      const res = await fetch(`${apiUrl}/ticker`);
-      const data = await res.json();
+      const response = await fetch(`${apiUrl}/ticker`);
+      const data = await response.json();
+
       setQuotes(data);
-    } catch (e) {
-      console.error("Ticker error:", e);
+    } catch (error) {
+      console.log("Ticker Error:", error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-  }
+  };
 
+  // Load once + Refresh every 1 minute
   useEffect(() => {
-    loadQuotes();
-    const id = setInterval(loadQuotes, 60000);
-    return () => clearInterval(id);
-  }, []);
+    fetchQuotes();
 
-  const bg = darkMode ? "#111827" : "#f1f5f9";
-  const border = darkMode ? "#1e293b" : "#e2e8f0";
-  const div = darkMode ? "#334155" : "#cbd5e1";
+    const timer = setInterval(fetchQuotes, 60000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div
-      style={{
-        background: bg,
-        borderTop: `0.5px solid ${border}`,
-        borderBottom: `0.5px solid ${border}`,
-        padding: "7px 20px",
-        display: "flex",
-        alignItems: "center",
-        gap: 20,
-        overflowX: "auto",
-        scrollbarWidth: "none",
-      }}
+      className={`border-y ${
+        darkMode
+          ? "bg-slate-900 border-slate-800"
+          : "bg-slate-100 border-slate-200"
+      }`}
     >
-      {/* LIVE dot */}
-      <div
-        style={{ display: "flex", alignItems: "center", gap: 5, flexShrink: 0 }}
-      >
-        <span
-          style={{
-            width: 6,
-            height: 6,
-            borderRadius: "50%",
-            background: "#22c55e",
-            display: "inline-block",
-            animation: "pulse 1.5s infinite",
-          }}
-        />
-        <span
-          style={{
-            fontSize: 10,
-            fontWeight: 600,
-            color: "#22c55e",
-            letterSpacing: "0.05em",
-          }}
-        >
-          LIVE
-        </span>
-      </div>
+      <div className="max-w-7xl mx-auto flex items-center gap-5 px-4 py-2 overflow-x-auto whitespace-nowrap">
+        {/* Live Badge */}
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+          <span className="text-xs font-semibold text-green-500">LIVE</span>
+        </div>
 
-      <div style={{ width: 1, height: 14, background: div, flexShrink: 0 }} />
-
-      {loading ? (
-        <span style={{ fontSize: 11, color: "#64748b" }}>
-          Fetching market data...
-        </span>
-      ) : quotes.length === 0 ? (
-        <span style={{ fontSize: 11, color: "#64748b" }}>
-          Market data unavailable
-        </span>
-      ) : (
-        quotes.map((q, i) => (
-          <div
-            key={q.symbol}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 20,
-              flexShrink: 0,
-            }}
-          >
-            {i > 0 && <div style={{ width: 1, height: 14, background: div }} />}
-            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+        {/* Loading */}
+        {loading ? (
+          <p className="text-xs text-slate-500">Fetching market data...</p>
+        ) : (
+          quotes.map((item) => (
+            <div key={item.symbol} className="flex items-center gap-2 shrink-0">
               <span
-                style={{
-                  fontSize: 11,
-                  color: darkMode ? "#94a3b8" : "#64748b",
-                  fontWeight: 500,
-                }}
+                className={`text-xs ${
+                  darkMode ? "text-slate-400" : "text-slate-600"
+                }`}
               >
-                {q.label}
+                {item.label}
               </span>
+
               <span
-                style={{
-                  fontSize: 11,
-                  fontWeight: 600,
-                  color: darkMode ? "#f1f5f9" : "#1e293b",
-                }}
+                className={`text-sm font-semibold ${
+                  darkMode ? "text-white" : "text-slate-900"
+                }`}
               >
-                {Number(q.price).toLocaleString("en-IN", {
+                {Number(item.price).toLocaleString("en-IN", {
                   maximumFractionDigits: 2,
                 })}
               </span>
+
               <span
-                style={{
-                  fontSize: 10,
-                  fontWeight: 600,
-                  color: q.change >= 0 ? "#22c55e" : "#ef4444",
-                }}
+                className={`text-xs font-semibold ${
+                  item.change >= 0 ? "text-green-500" : "text-red-500"
+                }`}
               >
-                {q.change >= 0 ? "▲" : "▼"} {Math.abs(q.change).toFixed(2)}%
+                {item.change >= 0 ? "▲" : "▼"}{" "}
+                {Math.abs(item.change).toFixed(2)}%
               </span>
             </div>
-          </div>
-        ))
-      )}
-
-      <style>{`@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}`}</style>
+          ))
+        )}
+      </div>
     </div>
   );
 }
+
+export default TickerBar;
