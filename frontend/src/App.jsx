@@ -40,6 +40,14 @@ function App() {
     );
   });
 
+  const sourceFilteredNews = news.filter((article) => {
+    if (selectedSource === "All Sources") {
+      return true;
+    }
+
+    return article.source === selectedSource;
+  });
+
   const fetchNews = () => {
     setRefreshing(true);
     fetch(`${API_URL}/news`)
@@ -132,7 +140,7 @@ function App() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* News Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {filteredNews.map((item) => (
+          {sourceFilteredNews.map((item) => (
             <NewsCard
               key={item.id}
               title={item.title}
