@@ -28,6 +28,10 @@ function App() {
     else if (savedTheme === "light") setDarkMode(false);
   }, []);
 
+  const sources = [
+    "All Sources",
+    ...new Set(news.map((article) => article.source)),
+  ];
   const filteredNews = news.filter((article) => {
     return (
       article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -121,6 +125,9 @@ function App() {
         apiUrl={API_URL}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
+        sources={sources}
+        selectedSource={selectedSource}
+        setSelectedSource={setSelectedSource}
       />
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* News Grid */}

@@ -1,6 +1,16 @@
 import { useEffect, useState } from "react";
 
-function TickerBar({ darkMode, apiUrl, searchTerm, setSearchTerm }) {
+function TickerBar({
+  darkMode,
+  apiUrl,
+  searchTerm,
+  setSearchTerm,
+  sources,
+
+  selectedSource,
+
+  setSelectedSource,
+}) {
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -84,6 +94,21 @@ function TickerBar({ darkMode, apiUrl, searchTerm, setSearchTerm }) {
             }`}
           />
         </div>
+        <select
+          value={selectedSource}
+          onChange={(e) => setSelectedSource(e.target.value)}
+          className={`rounded-lg border px-3 py-2 text-sm outline-none ${
+            darkMode
+              ? "bg-slate-900 border-slate-700 text-white"
+              : "bg-white border-slate-300 text-slate-900"
+          }`}
+        >
+          {sources.map((source) => (
+            <option key={source} value={source}>
+              {source}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );
