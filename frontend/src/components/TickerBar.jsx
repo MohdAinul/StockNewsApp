@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function TickerBar({ darkMode, apiUrl }) {
+function TickerBar({ darkMode, apiUrl, searchTerm, setSearchTerm }) {
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -34,12 +34,6 @@ function TickerBar({ darkMode, apiUrl }) {
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center gap-5 px-4 py-2 overflow-x-auto whitespace-nowrap">
-        {/* Live Badge */}
-        <div className="flex items-center gap-2 shrink-0">
-          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-          <span className="text-xs font-semibold text-green-500">LIVE</span>
-        </div>
-
         {/* Loading */}
         {loading ? (
           <p className="text-xs text-slate-500">Fetching market data...</p>
@@ -75,6 +69,21 @@ function TickerBar({ darkMode, apiUrl }) {
             </div>
           ))
         )}
+        <div className="max-w-7xl mx-auto px-5 py-4">
+          <input
+            type="text"
+            placeholder="search news"
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
+            className={`w-full rounded-lg border px-4 py-3 outline-none transition ${
+              darkMode
+                ? "bg-slate-900 border-slate-700 text-white placeholder:text-slate-500"
+                : "bg-white border-slate-300 text-slate-900 placeholder:text-slate-400"
+            }`}
+          />
+        </div>
       </div>
     </div>
   );

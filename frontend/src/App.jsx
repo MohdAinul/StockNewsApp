@@ -12,6 +12,7 @@ function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [lastUpdated, setLastUpdated] = useState("");
   const [refreshing, setRefreshing] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const API_URL = import.meta.env.VITE_API_URL;
 
@@ -25,6 +26,14 @@ function App() {
     if (savedTheme === "dark") setDarkMode(true);
     else if (savedTheme === "light") setDarkMode(false);
   }, []);
+
+  const filteredNews = news.filter((article) => {
+    return (
+      article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      article.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      article.source.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
 
   const fetchNews = () => {
     setRefreshing(true);
@@ -106,11 +115,16 @@ function App() {
         refreshing={refreshing}
         lastUpdated={lastUpdated}
       />
-      <TickerBar darkMode={darkMode} apiUrl={API_URL} />
+      <TickerBar
+        darkMode={darkMode}
+        apiUrl={API_URL}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* News Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {news.map((item) => (
+          {filteredNews.map((item) => (
             <NewsCard
               key={item.id}
               title={item.title}
@@ -124,7 +138,7 @@ function App() {
         </div>
       </div>
 
-      <Footer darkMode={darkMode} newsCount={news.length} />
+      <Footer darkMode={darkMode} newsCount={filteredNews.length} />
     </div>
   );
 }
