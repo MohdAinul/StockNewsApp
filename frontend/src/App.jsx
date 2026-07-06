@@ -13,6 +13,7 @@ function App() {
   const [lastUpdated, setLastUpdated] = useState("");
   const [refreshing, setRefreshing] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedSource, setSelectedSource] = useState("All Sources");
 
   const API_URL = import.meta.env.VITE_API_URL;
 
