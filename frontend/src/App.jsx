@@ -40,7 +40,7 @@ function App() {
     );
   });
 
-  const sourceFilteredNews = news.filter((article) => {
+  const sourceFilteredNews = filteredNews.filter((article) => {
     if (selectedSource === "All Sources") {
       return true;
     }
@@ -154,7 +154,7 @@ function App() {
         </div>
       </div>
 
-      <Footer darkMode={darkMode} newsCount={filteredNews.length} />
+      <Footer darkMode={darkMode} newsCount={sourceFilteredNews.length} />
     </div>
   );
 }
