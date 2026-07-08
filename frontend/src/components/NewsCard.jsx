@@ -3,7 +3,7 @@ function NewsCard({ title, description, source, published, link, darkMode }) {
   const publishedDate = new Date(published);
   const difference = now - publishedDate;
   const hoursDifference = difference / (1000 * 60 * 60);
-  const isBreaking = hoursDifference < 2;
+  const isBreaking = hoursDifference >= 0 && hoursDifference <= 2;
 
   return (
     <div
