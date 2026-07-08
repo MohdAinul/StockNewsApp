@@ -1,4 +1,10 @@
 function NewsCard({ title, description, source, published, link, darkMode }) {
+  const now = new Date();
+  const publishedDate = new Date(published);
+  const difference = now - publishedDate;
+  const hoursDifference = difference / (1000 * 60 * 60);
+  const isBreaking = hoursDifference < 2;
+
   return (
     <div
       className={`rounded-2xl p-5 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ${
@@ -12,7 +18,11 @@ function NewsCard({ title, description, source, published, link, darkMode }) {
           {source}
         </span>
       </div>
-
+      {isBreaking && (
+        <span className="inline-block bg-red-600 text-white text-xs font-semibold px-2 py-1 rounded-md mb-3">
+          BREAKING
+        </span>
+      )}
       <h3
         className={`text-lg font-semibold leading-relaxed mb-4 ${
           darkMode ? "text-white" : "text-slate-800"
@@ -29,7 +39,6 @@ function NewsCard({ title, description, source, published, link, darkMode }) {
           ? description.slice(0, 120) + "..."
           : description}
       </p>
-
       <div className="flex justify-between items-center">
         <span className="text-sm text-slate-500">
           {new Date(published).toLocaleDateString("en-IN", {

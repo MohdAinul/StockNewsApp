@@ -6,9 +6,7 @@ function TickerBar({
   searchTerm,
   setSearchTerm,
   sources,
-
   selectedSource,
-
   setSelectedSource,
 }) {
   const [quotes, setQuotes] = useState([]);
@@ -87,7 +85,7 @@ function TickerBar({
             onChange={(e) => {
               setSearchTerm(e.target.value);
             }}
-            className={`w-full rounded-lg border px-4 py-3 outline-none transition ${
+            className={`w-full rounded-lg border px-4 py-1 outline-none transition ${
               darkMode
                 ? "bg-slate-900 border-slate-700 text-white placeholder:text-slate-500"
                 : "bg-white border-slate-300 text-slate-900 placeholder:text-slate-400"
