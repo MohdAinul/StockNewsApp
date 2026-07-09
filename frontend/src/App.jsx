@@ -154,13 +154,18 @@ function App() {
               darkMode={darkMode}
             />
           ))}
+          <p className="text-center text-sm text-slate-500 mb-4">
+            Showing {displayNews.length} of {sourceFilteredNews.length} articles
+          </p>
           {displayNews.length < sourceFilteredNews.length && (
-            <button
-              onClick={() => setVisibleNews((prev) => prev + 20)}
-              className="flex justify-center mt-8"
-            >
-              Load More
-            </button>
+            <div className="flex justify-center mt-8">
+              <button
+                onClick={() => setVisibleNews((prev) => prev + 20)}
+                className="px-6 py-3 bg-blue-800 text-white rounded-lg hover:bg-blue-600 transition "
+              >
+                Load More
+              </button>
+            </div>
           )}
         </div>
       </div>
