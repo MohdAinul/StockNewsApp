@@ -24,7 +24,7 @@ function Navbar({ darkMode, toggleTheme, onRefresh, refreshing, lastUpdated }) {
 
         {/* Last updated — center */}
         <p
-          className={`hidden md:block text-xs tabular-nums ${darkMode ? "text-slate-500" : "text-slate-400"}`}
+          className={`text-xs tabular-nums ${darkMode ? "text-slate-500" : "text-slate-400"}`}
         >
           {lastUpdated
             ? `Updated ${new Date(lastUpdated).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}`

@@ -12,16 +12,22 @@ function NewsCard({ title, description, source, published, link, darkMode }) {
           : "bg-white"
       }`}
     >
-      <div className="mb-3">
-        <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">
+      <div className="flex items-center justify-between mb-3">
+        <span
+          className={`text-xs font-semibold px-3 py-1 rounded-full ${
+            darkMode
+              ? "bg-blue-500/20 text-blue-300"
+              : "bg-blue-100 text-blue-700"
+          }`}
+        >
           {source}
         </span>
+        {isBreaking && (
+          <span className="inline-block bg-red-600 text-white text-[10px] font-medium px-1.5 py-0.5 rounded-md mb-2">
+            Breaking
+          </span>
+        )}{" "}
       </div>
-      {isBreaking && (
-        <span className="inline-block bg-red-600 text-white text-xs font-semibold px-2 py-1 rounded-md mb-3">
-          BREAKING
-        </span>
-      )}
       <h3
         className={`text-lg font-semibold leading-relaxed mb-4 ${
           darkMode ? "text-white" : "text-slate-800"
