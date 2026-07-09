@@ -14,6 +14,7 @@ function App() {
   const [refreshing, setRefreshing] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedSource, setSelectedSource] = useState("All Sources");
+  const [visibleNews, setVisibleNews] = useState(20);
 
   const API_URL = import.meta.env.VITE_API_URL;
 
@@ -47,6 +48,8 @@ function App() {
 
     return article.source === selectedSource;
   });
+
+  const displayNews = sourceFilteredNews.slice(0, visibleNews);
 
   const fetchNews = () => {
     setRefreshing(true);
@@ -140,7 +143,7 @@ function App() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* News Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {sourceFilteredNews.map((item) => (
+          {displayNews.map((item) => (
             <NewsCard
               key={item.id}
               title={item.title}
@@ -151,6 +154,14 @@ function App() {
               darkMode={darkMode}
             />
           ))}
+          {displayNews.length < sourceFilteredNews.length && (
+            <button
+              onClick={() => setVisibleNews((prev) => prev + 20)}
+              className="flex justify-center mt-8"
+            >
+              Load More
+            </button>
+          )}
         </div>
       </div>
 

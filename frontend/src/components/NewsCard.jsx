@@ -4,7 +4,6 @@ function NewsCard({ title, description, source, published, link, darkMode }) {
   const difference = now - publishedDate;
   const hoursDifference = difference / (1000 * 60 * 60);
   const isBreaking = hoursDifference >= 0 && hoursDifference <= 2;
-
   return (
     <div
       className={`rounded-2xl p-5 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ${
