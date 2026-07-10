@@ -8,9 +8,9 @@ function NewsCard({ title, description, source, published, link, darkMode }) {
   const minutesDifference = difference / (1000 * 60);
   let timeDisplay = "";
   if (minutesDifference < 60) {
-    timeDisplay = `${minutesDifference} min ago`;
+    timeDisplay = `${Math.floor(minutesDifference)} min ago`;
   } else if (hoursDifference < 24) {
-    timeDisplay = `${hoursDifference}h ago`;
+    timeDisplay = `${Math.floor(hoursDifference)}h ago`;
   } else {
     timeDisplay = `${publishedDate.toLocaleDateString("en-IN", {
       day: "numeric",
