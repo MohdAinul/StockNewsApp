@@ -1,4 +1,16 @@
-function NewsCard({ title, description, source, published, link, darkMode }) {
+import { Bookmark } from "lucide-react";
+
+function NewsCard({
+  title,
+  id,
+  description,
+  source,
+  published,
+  link,
+  darkMode,
+  bookmarked,
+  toggleBookmark,
+}) {
   const now = new Date();
   const publishedDate = new Date(published);
   const difference = now - publishedDate;
@@ -20,6 +32,7 @@ function NewsCard({ title, description, source, published, link, darkMode }) {
       minute: "2-digit",
     })}`;
   }
+
   return (
     <div
       className={`rounded-2xl p-5 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ${
@@ -68,14 +81,31 @@ function NewsCard({ title, description, source, published, link, darkMode }) {
         >
           {timeDisplay}
         </span>
-        <a
-          href={link}
-          target="_blank"
-          rel="noreferrer"
-          className="text-blue-600 font-semibold hover:text-blue-800"
-        >
-          Read →
-        </a>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => toggleBookmark(id)}
+            className="transition hover:scale-110"
+          >
+            <Bookmark
+              size={18}
+              fill={bookmarked ? "currentColor" : "none"}
+              className={`transition-colors ${
+                bookmarked
+                  ? "text-yellow-400"
+                  : "text-slate-400 hover:text-yellow-400"
+              }`}
+            />
+          </button>
+
+          <a
+            href={link}
+            target="_blank"
+            rel="noreferrer"
+            className="text-blue-600 font-semibold hover:text-blue-800"
+          >
+            Read →
+          </a>
+        </div>
       </div>
     </div>
   );

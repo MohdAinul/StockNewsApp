@@ -15,6 +15,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedSource, setSelectedSource] = useState("All Sources");
   const [visibleNews, setVisibleNews] = useState(20);
+  const [bookmarks, setBookmarks] = useState([]);
 
   const API_URL = import.meta.env.VITE_API_URL;
 
@@ -28,6 +29,15 @@ function App() {
     if (savedTheme === "dark") setDarkMode(true);
     else if (savedTheme === "light") setDarkMode(false);
   }, []);
+
+  useEffect(() => {
+    const savedBookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
+    setBookmarks(savedBookmarks);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+  }, [bookmarks]);
 
   const sources = [
     "All Sources",
@@ -71,6 +81,13 @@ function App() {
         setLoading(false);
         setRefreshing(false);
       });
+  };
+  const toggleBookmark = (id) => {
+    if (bookmarks.includes(id)) {
+      setBookmarks((prev) => prev.filter((item) => item !== id));
+    } else {
+      setBookmarks((prev) => [...prev, id]);
+    }
   };
 
   useEffect(() => {
@@ -146,10 +163,13 @@ function App() {
           {displayNews.map((item) => (
             <NewsCard
               key={item.id}
+              id={item.id}
               title={item.title}
               source={item.source}
               published={item.published}
               description={item.description}
+              bookmarked={bookmarks.includes(item.id)}
+              toggleBookmark={toggleBookmark}
               link={item.link}
               darkMode={darkMode}
             />
