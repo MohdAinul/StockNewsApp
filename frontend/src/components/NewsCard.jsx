@@ -58,20 +58,18 @@ function NewsCard({
         )}{" "}
       </div>
       <h3
-        className={`text-lg font-semibold leading-relaxed mb-4 ${
+        className={`text-lg font-semibold leading-relaxed mb-4 line-clamp-2 ${
           darkMode ? "text-white" : "text-slate-800"
         }`}
       >
         {title}
       </h3>
       <p
-        className={`text-sm leading-relaxed mb-4 ${
+        className={`text-sm leading-relaxed mb-4 line-clamp-2 ${
           darkMode ? "text-slate-300" : "text-gray-600"
         }`}
       >
-        {description?.length > 120
-          ? description.slice(0, 120) + "..."
-          : description}
+        {description}
       </p>
       <div className="flex justify-between items-center">
         <span
