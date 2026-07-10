@@ -4,6 +4,22 @@ function NewsCard({ title, description, source, published, link, darkMode }) {
   const difference = now - publishedDate;
   const hoursDifference = difference / (1000 * 60 * 60);
   const isBreaking = hoursDifference >= 0 && hoursDifference <= 2;
+
+  const minutesDifference = difference / (1000 * 60);
+  let timeDisplay = "";
+  if (minutesDifference < 60) {
+    timeDisplay = `${minutesDifference} min ago`;
+  } else if (hoursDifference < 24) {
+    timeDisplay = `${hoursDifference}h ago`;
+  } else {
+    timeDisplay = `${publishedDate.toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "short",
+    })} • ${publishedDate.toLocaleTimeString("en-IN", {
+      hour: "2-digit",
+      minute: "2-digit",
+    })}`;
+  }
   return (
     <div
       className={`rounded-2xl p-5 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ${
@@ -50,19 +66,8 @@ function NewsCard({ title, description, source, published, link, darkMode }) {
             darkMode ? "text-slate-400" : "text-slate-500"
           }`}
         >
-          {new Date(published).toLocaleDateString("en-IN", {
-            day: "numeric",
-            month: "short",
-          })}
-
-          {"  "}
-
-          {new Date(published).toLocaleTimeString("en-IN", {
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
+          {timeDisplay}
         </span>
-
         <a
           href={link}
           target="_blank"
