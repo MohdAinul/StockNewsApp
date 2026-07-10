@@ -45,11 +45,21 @@ function NewsCard({ title, description, source, published, link, darkMode }) {
           : description}
       </p>
       <div className="flex justify-between items-center">
-        <span className="text-sm text-slate-500">
+        <span
+          className={`text-xs ${
+            darkMode ? "text-slate-400" : "text-slate-500"
+          }`}
+        >
           {new Date(published).toLocaleDateString("en-IN", {
             day: "numeric",
             month: "short",
-            year: "numeric",
+          })}
+
+          {"  "}
+
+          {new Date(published).toLocaleTimeString("en-IN", {
+            hour: "2-digit",
+            minute: "2-digit",
           })}
         </span>
 
