@@ -28,9 +28,9 @@ function Footer({ darkMode, newsCount }) {
                 darkMode ? "text-slate-400" : "text-slate-500"
               }`}
             >
-              Aggregating Indian stock market news from trusted financial
-              publications and RSS feeds. Focused on stocks, IPOs, markets and
-              investing.
+              A modern stock market news aggregator built with React and
+              Express.js. Stay updated with the latest market news, IPOs and
+              financial insights from trusted RSS sources.
             </p>
           </div>
 
@@ -72,17 +72,36 @@ function Footer({ darkMode, newsCount }) {
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div
-          className={`mt-8 pt-5 border-t flex flex-col sm:flex-row justify-between items-center gap-2 text-xs ${
-            darkMode
-              ? "border-slate-800 text-slate-600"
-              : "border-slate-200 text-slate-400"
-          }`}
-        >
+        <div className="flex flex-col sm:flex-row  gap-2 text-slate-500">
           <p>© {new Date().getFullYear()} StockPe</p>
 
-          <p>News sourced from public RSS feeds</p>
+          <span className="hidden sm:block">•</span>
+
+          <p>Built by Ainul</p>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <a
+            href="https://github.com/MohdAinul"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`transition-colors hover:text-blue-500 ${
+              darkMode ? "text-slate-400" : "text-slate-600"
+            }`}
+          >
+            GitHub
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/mohd-ainul-27492b27a/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`transition-colors hover:text-blue-500 ${
+              darkMode ? "text-slate-400" : "text-slate-600"
+            }`}
+          >
+            LinkedIn
+          </a>
         </div>
       </div>
     </footer>
