@@ -8,6 +8,8 @@ function TickerBar({
   sources,
   selectedSource,
   setSelectedSource,
+  showBookmarks,
+  setShowBookmarks,
 }) {
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -80,36 +82,50 @@ function TickerBar({
       </div>
 
       {/* Search + Filter */}
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row gap-3 px-4 py-3">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center gap-3 px-4 py-3">
         <div className="flex-1">
           <input
             type="text"
             placeholder="Search by title, company or source..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className={`w-full rounded-lg border px-4 py-2 outline-none transition ${
+            className={`w-full h-11 rounded-lg border px-4 py-2 outline-none transition ${
               darkMode
                 ? "bg-slate-900 border-slate-700 text-white placeholder:text-slate-500"
                 : "bg-white border-slate-300 text-slate-900 placeholder:text-slate-400"
             }`}
           />
         </div>
+        <div className="flex gap-3">
+          <select
+            value={selectedSource}
+            onChange={(e) => setSelectedSource(e.target.value)}
+            className={`w-full lg:w-60 h-11 rounded-xl border px-4 text-sm outline-none transition ${
+              darkMode
+                ? "bg-slate-900 border-slate-700 text-white"
+                : "bg-white border-slate-300 text-slate-900"
+            }`}
+          >
+            {sources.map((source) => (
+              <option key={source} value={source}>
+                {source}
+              </option>
+            ))}
+          </select>
 
-        <select
-          value={selectedSource}
-          onChange={(e) => setSelectedSource(e.target.value)}
-          className={`w-full sm:w-auto rounded-lg border px-4 py-2 text-sm outline-none ${
-            darkMode
-              ? "bg-slate-900 border-slate-700 text-white"
-              : "bg-white border-slate-300 text-slate-900"
-          }`}
-        >
-          {sources.map((source) => (
-            <option key={source} value={source}>
-              {source}
-            </option>
-          ))}
-        </select>
+          <button
+            onClick={() => setShowBookmarks((prev) => !prev)}
+            className={`h-11 px-5 rounded-xl border text-sm font-medium transition-all duration-300 ${
+              showBookmarks
+                ? "border-yellow-500 bg-yellow-500/15 text-yellow-400"
+                : darkMode
+                  ? "border-slate-700 bg-slate-800 text-slate-300 hover:border-yellow-500 hover:text-yellow-400"
+                  : "border-slate-300 bg-white text-slate-700 hover:border-yellow-500 hover:text-yellow-600"
+            }`}
+          >
+            {showBookmarks ? " Bookmarks" : "Bookmarks"}
+          </button>
+        </div>
       </div>
     </div>
   );

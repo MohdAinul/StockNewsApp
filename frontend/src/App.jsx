@@ -16,6 +16,7 @@ function App() {
   const [selectedSource, setSelectedSource] = useState("All Sources");
   const [visibleNews, setVisibleNews] = useState(20);
   const [bookmarks, setBookmarks] = useState([]);
+  const [showBookmarks, setShowBookmarks] = useState(false);
 
   const API_URL = import.meta.env.VITE_API_URL;
 
@@ -59,7 +60,13 @@ function App() {
     return article.source === selectedSource;
   });
 
-  const displayNews = sourceFilteredNews.slice(0, visibleNews);
+  const bookmarkFilteredNews = sourceFilteredNews.filter((article) =>
+    bookmarks.includes(article.id),
+  );
+
+  const displayNews = showBookmarks
+    ? bookmarkFilteredNews
+    : sourceFilteredNews.slice(0, visibleNews);
 
   const fetchNews = () => {
     setRefreshing(true);
@@ -156,6 +163,8 @@ function App() {
         sources={sources}
         selectedSource={selectedSource}
         setSelectedSource={setSelectedSource}
+        showBookmarks={showBookmarks}
+        setShowBookmarks={setShowBookmarks}
       />
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* News Grid */}
@@ -175,14 +184,20 @@ function App() {
             />
           ))}
         </div>
+
         <p className="text-center text-sm text-slate-500 mb-5 mt-4">
-          Showing {displayNews.length} of {sourceFilteredNews.length} articles
+          Showing {displayNews.length} of{" "}
+          {showBookmarks
+            ? bookmarkFilteredNews.length
+            : sourceFilteredNews.length}{" "}
+          articles
         </p>
-        {displayNews.length < sourceFilteredNews.length && (
+
+        {!showBookmarks && displayNews.length < sourceFilteredNews.length && (
           <div className="flex justify-center mt-8">
             <button
               onClick={() => setVisibleNews((prev) => prev + 20)}
-              className="px-6 py-3 bg-blue-800 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300 "
+              className="px-6 py-3 bg-blue-800 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300"
             >
               Load More News
             </button>
