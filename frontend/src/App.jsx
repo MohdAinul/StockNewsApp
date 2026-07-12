@@ -185,20 +185,42 @@ function App() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* News Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {displayNews.map((item) => (
-            <NewsCard
-              key={item.id}
-              id={item.id}
-              title={item.title}
-              source={item.source}
-              published={item.published}
-              description={item.description}
-              bookmarked={bookmarks.includes(item.id)}
-              toggleBookmark={toggleBookmark}
-              link={item.link}
-              darkMode={darkMode}
-            />
-          ))}
+          {displayNews.length > 0 ? (
+            displayNews.map((item) => (
+              <NewsCard
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                source={item.source}
+                published={item.published}
+                description={item.description}
+                bookmarked={bookmarks.includes(item.id)}
+                toggleBookmark={toggleBookmark}
+                link={item.link}
+                darkMode={darkMode}
+              />
+            ))
+          ) : (
+            <div className="col-span-full flex flex-col items-center justify-center py-20">
+              <h2
+                className={`text-2xl font-bold ${
+                  darkMode ? "text-white" : "text-slate-900"
+                }`}
+              >
+                {showBookmarks ? "No bookmarked articles" : "No news found"}
+              </h2>
+
+              <p
+                className={`mt-2 text-center ${
+                  darkMode ? "text-slate-400" : "text-slate-600"
+                }`}
+              >
+                {showBookmarks
+                  ? "Bookmark articles to see them here."
+                  : "Try a different search keyword or source."}
+              </p>
+            </div>
+          )}
         </div>
 
         <p className="text-center text-sm text-slate-500 mb-5 mt-4">
