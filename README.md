@@ -181,6 +181,10 @@ This project helped me gain practical experience with:
 
 ![Home](Screenshots/home.png)
 
+### Light Mode
+
+![Light Mode](Screenshots/light.png)
+
 ## License
 
 This project is licensed under the MIT License.
