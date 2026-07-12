@@ -121,19 +121,35 @@ function App() {
       </div>
     );
   }
-
   if (error) {
     return (
       <div
-        className={`min-h-screen flex items-center justify-center ${darkMode ? "bg-slate-950" : "bg-slate-100"}`}
+        className={`min-h-screen flex items-center justify-center ${
+          darkMode ? "bg-slate-950" : "bg-slate-100"
+        }`}
       >
-        <div className="text-center">
-          <p className="text-red-400 mb-3">{error}</p>
+        <div className="text-center max-w-md px-6">
+          <div className="text-5xl mb-4">⚠️</div>
+
+          <h2
+            className={`text-2xl font-bold ${
+              darkMode ? "text-white" : "text-slate-900"
+            }`}
+          >
+            Unable to load market news
+          </h2>
+
+          <p
+            className={`mt-3 ${darkMode ? "text-slate-400" : "text-slate-600"}`}
+          >
+            Please check your internet connection or try again.
+          </p>
+
           <button
             onClick={fetchNews}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm"
+            className="mt-6 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white transition-colors"
           >
-            Try again
+            Retry
           </button>
         </div>
       </div>
