@@ -175,9 +175,11 @@ This project helped me gain practical experience with:
 - Market heatmap
 - Watchlist
 
-## Screenshots
+## 📸 Screenshots
 
-Screenshots will be added after the UI is finalized.
+### 🏠 Home
+
+![Home](screenshots/home.png)
 
 ## License
 
