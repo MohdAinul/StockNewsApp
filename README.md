@@ -179,7 +179,7 @@ This project helped me gain practical experience with:
 
 ### 🏠 Home
 
-![Home](screenshots/home.png)
+![Home](Screenshots/home.png)
 
 ## License
 
