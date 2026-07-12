@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Logo from "./components/Logo";
 import TickerBar from "./components/TickerBar";
+import ReactGA from "react-ga4";
 
 function App() {
   const [news, setNews] = useState([]);
@@ -17,6 +18,20 @@ function App() {
   const [visibleNews, setVisibleNews] = useState(20);
   const [bookmarks, setBookmarks] = useState([]);
   const [showBookmarks, setShowBookmarks] = useState(false);
+
+  useEffect(() => {
+    const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+
+    if (measurementId) {
+      ReactGA.initialize(measurementId);
+    }
+  }, []);
+  useEffect(() => {
+    ReactGA.send({
+      hitType: "pageview",
+      page: window.location.pathname,
+    });
+  }, []);
 
   const API_URL = import.meta.env.VITE_API_URL;
 
